@@ -1,0 +1,6 @@
+name: rt_diagnostics
+build:
+  cmake: .
+  kconfig: Kconfig
+  depends:
+    - rt_log

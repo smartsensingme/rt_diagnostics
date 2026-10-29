@@ -1,0 +1,19 @@
+config RT_DIAGNOSTICS
+    bool "Bounded numerical runtime diagnostics"
+    default n
+    help
+      Owner-thread numerical instrumentation with caller-supplied timestamps.
+      No allocation, formatting, timers or worker threads. Fixed-size caller-owned
+      state; updates do bounded integer arithmetic. Snapshots copy the whole
+      layout and reset only a window. Disabling creates no-op inline updates;
+      arguments still follow normal C evaluation. Does not measure power.
+
+config RT_DIAGNOSTICS_DETAILED_TIMING
+    bool "Stage and interval measurements"
+    depends on RT_DIAGNOSTICS
+    default y
+    help
+      Disable to compile stage/interval record operations into no-ops. The fixed
+      snapshot layout remains unchanged for ABI consistency; cycle/event counts
+      still work. Enabled recording adds bounded arithmetic per measured stage,
+      not a timer or task. Timestamps must share the owner clock.
