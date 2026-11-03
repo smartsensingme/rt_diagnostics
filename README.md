@@ -1,8 +1,28 @@
 # rt_diagnostics
 
-Coletor numérico com integração Zephyr, mantido em repositório independente (versão local 0.1.0).
-Implementação original em C, Apache-2.0; os componentes ESP-IDF do usuário serviram
-como referência arquitetural, sem portar código ou depender de ESP-IDF/FreeRTOS.
+`rt_diagnostics` é uma biblioteca C para acompanhar o tempo de execução e a
+ocorrência de eventos em rotinas de uma aplicação embarcada. Permite registrar
+a duração de ciclos de trabalho e de suas etapas, contar eventos, acompanhar
+intervalos e verificar quantas execuções ultrapassaram um limite configurado.
+
+Use o módulo para investigar quanto tempo uma aquisição de sensores demora,
+qual etapa apresenta os maiores tempos, se o tratamento de um evento começou
+com atraso ou quantas execuções excederam o prazo esperado.
+
+A aplicação insere chamadas de instrumentação nos pontos que deseja acompanhar
+e fornece os timestamps. O módulo acumula contagens, somas, mínimos e máximos
+em janelas de observação e histórico. Os resultados são obtidos como snapshots:
+cópias dos dados que podem ser entregues a outro componente para análise ou
+apresentação, como o `rt_diagnostics_reporter`.
+
+O núcleo é C puro, com adaptador opcional de relógio para Zephyr, sem alocação
+dinâmica, thread ou timer próprios. As durações incluem interrupções e preempções;
+não representam uso exclusivo da CPU nem medição de consumo elétrico.
+
+Repositório: [smartsensingme/rt_diagnostics](https://github.com/smartsensingme/rt_diagnostics).
+Versão 0.1.0, licença Apache-2.0.
+Implementação original em C; os componentes ESP-IDF do usuário serviram como
+referência arquitetural, sem portar código ou depender de ESP-IDF/FreeRTOS.
 
 ## Responsabilidade e dependências
 
